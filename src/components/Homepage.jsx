@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useGetCryptosQuery } from '../services/cryptoApi';
 import Cryptocurrencies from './Cryptocurrencies';
 import News from './News';
+import Loader from './UI/Loader/Loader';
 
 const { Title } = Typography;
 
@@ -21,10 +22,11 @@ const Homepage = () => {
   useEffect(() => {
     if (data?.data?.stats) {
       setGlobalStats(data.data.stats);
+      document.title = 'Crypto Daily | Home Page';
     }
   }, [data?.data?.stats]);
 
-  if (isFetching) return 'Loading...';
+  if (isFetching) return <Loader />;
 
   return (
     <Fragment>

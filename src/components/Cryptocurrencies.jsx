@@ -3,6 +3,7 @@ import millify from 'millify';
 import { Link } from 'react-router-dom';
 import { Typography, Card, Row, Col, Input } from 'antd';
 import { useGetCryptosQuery } from '../services/cryptoApi';
+import Loader from './UI/Loader/Loader';
 
 const { Title } = Typography;
 
@@ -15,6 +16,7 @@ const Cryptocurrencies = ({ simplified }) => {
   useEffect(() => {
     if (cryptosList?.data?.coins) {
       setCryptos(cryptosList.data.coins);
+      document.title = 'Crypto Daily | Cryptocurrencies';
     }
   }, [cryptosList?.data?.coins]);
 
@@ -28,7 +30,7 @@ const Cryptocurrencies = ({ simplified }) => {
     }
   }, [cryptosList, searchTerm]);
 
-  if (isFetching) return 'Loading...';
+  if (isFetching) return <Loader />;
 
   return (
     <Fragment>
