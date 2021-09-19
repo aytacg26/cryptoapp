@@ -9,7 +9,7 @@ import News from './News';
 const { Title } = Typography;
 
 const Homepage = () => {
-  const { data, isFetching } = useGetCryptosQuery();
+  const { data, isFetching } = useGetCryptosQuery(10);
   const [globalStats, setGlobalStats] = useState({
     total: 0,
     totalExchanges: 0,
