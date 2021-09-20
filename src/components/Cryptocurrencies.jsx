@@ -12,6 +12,7 @@ const Cryptocurrencies = ({ simplified }) => {
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     if (cryptosList?.data?.coins) {
@@ -27,8 +28,14 @@ const Cryptocurrencies = ({ simplified }) => {
       );
 
       setCryptos(filteredData);
+      setHasSearched(true);
     }
-  }, [cryptosList, searchTerm]);
+
+    if (hasSearched && !searchTerm) {
+      //If user selects all in searchTerm and deletes by using backspace, this will work
+      setCryptos(cryptosList.data.coins);
+    }
+  }, [cryptosList, searchTerm, hasSearched]);
 
   if (isFetching) return <Loader />;
 
